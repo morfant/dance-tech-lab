@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Researcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header, footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #e9ecef;
+        }
+
+        main {
+            padding: 1rem;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .btn {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>GPT Researcher</h1>
+    </header>
+
+    <main>
+        <form method="POST" onsubmit="GPTResearcher.startResearch(); return false;">
+            <div class="form-group">
+                <label for="task">What would you like me to research next?</label>
+                <input id="task" name="task" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="report_type">What type of report would you like me to generate?</label>
+                <select name="report_type" id="report_type" class="form-control" required>
+                    <option value="research_report">Summary - Short and fast (~2 min)</option>
+                    <option value="detailed_report">Detailed - In depth and longer (~5 min)</option>
+                    <option value="resource_report">Resource Report</option>
+                    <option value="multi_agents">Multi agents Report</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tone">In which tone would you like the report to be generated?</label>
+                <select name="tone" id="tone" class="form-control" required>
+                    <option value="Objective">Objective</option>
+                    <option value="Formal">Formal</option>
+                    <option value="Analytical">Analytical</option>
+                    <option value="Persuasive">Persuasive</option>
+                    <option value="Informative">Informative</option>
+                    <option value="Explanatory">Explanatory</option>
+                    <option value="Descriptive">Descriptive</option>
+                    <option value="Critical">Critical</option>
+                    <option value="Comparative">Comparative</option>
+                    <option value="Speculative">Speculative</option>
+                    <option value="Reflective">Reflective</option>
+                    <option value="Narrative">Narrative</option>
+                    <option value="Humorous">Humorous</option>
+                    <option value="Optimistic">Optimistic</option>
+                    <option value="Pessimistic">Pessimistic</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report_source">What sources would you like me to research from?</label>
+                <select name="report_source" id="report_source" class="form-control" required>
+                    <option value="web">The Web</option>
+                    <option value="local">My Documents</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Research</button>
+        </form>
+
+        <div id="output" class="form-group hidden">
+            <h2>Agent Output</h2>
+        </div>
+
+        <div id="reportContainer" class="form-group hidden">
+            <h2>Research Report</h2>
+            <div id="reportActions" class="hidden">
+                <a id="copyToClipboard" onclick="GPTResearcher.copyToClipboard()" class="btn btn-secondary">Copy to clipboard</a>
+                <a id="downloadLinkMd" href="#" class="btn btn-secondary" target="_blank">Download as Markdown</a>
+                <a id="downloadLink" href="#" class="btn btn-secondary" target="_blank">Download as PDF</a>
+                <a id="downloadLinkWord" href="#" class="btn btn-secondary" target="_blank">Download as Docx</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>GPT Researcher &copy; 2024 | <a href="https://github.com/assafelovic/gpt-researcher" target="_blank">GitHub Page</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <script src="/site/scripts.js"></script>
+    <script>
+        // Initialize GPTResearcher
+        document.addEventListener('DOMContentLoaded', function() {
+            // Any additional JavaScript initialization
+        });
+    </script>
+</body>
+
+</html>
