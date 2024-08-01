@@ -13,3 +13,9 @@ pip install -r requirements.txt
 ```bash
 python -m uvicorn main:app --reload
 ```
+
+<br/>
+접속
+```bash
+브라우저 주소창에 127.0.0.1:8000 입력
+```
