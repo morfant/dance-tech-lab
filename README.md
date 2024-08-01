@@ -6,8 +6,9 @@
 cd gpt-researcher
 pip install -r requirements.txt
 ```
-    
-  
+
+<br/><br/><br/>
+
 실행
 ```bash
 python -m uvicorn main:app --reload
