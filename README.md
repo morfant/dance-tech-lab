@@ -7,7 +7,7 @@ cd gpt-researcher
 pip install -r requirements.txt
 ```
 
-<br/><br/><br/>
+<br/><br/>
 
 실행
 ```bash
