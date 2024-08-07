@@ -4,6 +4,53 @@ from langgraph.graph import StateGraph, END
 from .utils.views import print_agent_output
 from ..memory.research import ResearchState
 from .utils.utils import sanitize_filename
+from PIL import Image
+from graphviz import Digraph
+
+# 주어진 Graph 객체를 사용하여 nodes와 edges를 추출하는 함수
+def extract_nodes_edges(graph):
+    # 노드와 엣지를 저장할 리스트와 딕셔너리
+    nodes = {}
+    edges = []
+
+    # 노드 추출
+    for node_id, node in graph.nodes.items():
+        nodes[node_id] = node.name
+
+    # 엣지 추출
+    for edge in graph.edges:
+        edges.append((edge.source, edge.target))
+
+    return nodes, edges
+
+
+def create_graph_png(nodes, edges, output_file='graph_output.png'):
+    """
+    Create a PNG image of a graph based on provided nodes and edges.
+
+    Parameters:
+    - nodes (dict): A dictionary of nodes where keys are node IDs and values are node names.
+    - edges (list): A list of tuples representing edges, where each tuple contains (source, target).
+    - output_file (str): The filename for the output PNG image. Defaults to 'graph_output.png'.
+    """
+    # Create a new Digraph object
+    dot = Digraph()
+
+    # Add nodes to the graph
+    for node_id, node_name in nodes.items():
+        dot.node(node_id, node_name)
+
+    # Add edges to the graph
+    for source, target in edges:
+        dot.edge(source, target)
+
+    # Render the graph to a PNG file
+    dot.render(filename=output_file, format='png', cleanup=True)
+    print(f"Graph saved as {output_file}")
+
+
+
+
 
 
 # Import agent classes
@@ -57,10 +104,26 @@ class ChiefEditorAgent:
 
         # compile the graph
         chain = research_team.compile()
+
+        # Create the graph PNG
+        nodes, edges = extract_nodes_edges(chain.get_graph())
+        create_graph_png(nodes, edges, output_file='graph_output.png')
+
+        # 이미지 열기
+        # img = Image.open('graph_output.png')
+        # img.show()
+
         if self.websocket and self.stream_output:
-            await self.stream_output("logs", "starting_research", f"Starting the research process for query '{self.task.get('query')}'...", self.websocket)
-        else:
-            print_agent_output(f"Starting the research process for query '{self.task.get('query')}'...", "MASTER")
+            print("self.task.get('multi_agents'): ",self.task.get('multi_agents'))
+            if self.task.get('multi_agents'):
+                # multi agent 
+                print_agent_output(f"Starting the research process for query '{self.task.get('query')}'...", "MASTER")
+            else:
+                # single researcher
+                await self.stream_output("logs", "starting_research", f"Starting the research process for query '{self.task.get('query')}'...", self.websocket)
+        # else:
+            # multi agent 
+            # print_agent_output(f"Starting the research process for query '{self.task.get('query')}'...", "MASTER")
  
         result = await chain.ainvoke({"task": self.task})
 

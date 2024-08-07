@@ -17,7 +17,7 @@ class GPTResearcher:
     def __init__(
         self,
         query: str,
-        report_type: str = ReportType.ResearchReport.value,
+        report_type: str = ReportType.MultiAgentsReport.value,
         report_source=ReportSource.Web.value,
         tone: Tone = Tone.Objective,
         source_urls=None,
@@ -32,6 +32,8 @@ class GPTResearcher:
         verbose: bool = True,
         context=[],
         headers: dict = None,  # Add headers parameter
+
+        
     ):
         """
         Initialize the GPT Researcher class.
@@ -157,6 +159,11 @@ class GPTResearcher:
             str: The report
         """
         report = ""
+
+        print("write_report() self.report_type: ", self.report_type)
+        # if self.report_type == "multi_agents_report":
+            # print("multi_agents research has final report only!")
+            # return ""
 
         if self.verbose:
             await stream_output(

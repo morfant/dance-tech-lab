@@ -68,6 +68,7 @@ async def run_agent(task, report_type, report_source, source_urls, tone: Tone, w
     # add customized JSON config file path here
     config_path = ""
     # Instead of running the agent directly run it through the different report type classes
+    print("run_agent() report_type: ", report_type)
     if report_type == "multi_agents":
         report = await run_research_task(query=task, websocket=websocket, stream_output=stream_output, tone=tone, headers=headers)
         report = report.get("report", "")

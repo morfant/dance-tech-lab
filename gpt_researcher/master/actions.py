@@ -404,7 +404,6 @@ async def generate_report(
 
 
 async def stream_output(type, content, output, websocket=None, logging=True, metadata=None):
-    print("stream_output()")
     """
     Streams output to the websocket
     Args:

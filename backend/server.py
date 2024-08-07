@@ -70,12 +70,11 @@ def sanitize_filename(filename):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    print("ws!")
     await manager.connect(websocket)
     try:
         while True:
             data = await websocket.receive_text()
-            print("data: ", data)
+            print("websocket_endpoint() data: ", data)
             if data.startswith("start"):
                 json_data = json.loads(data[6:])
                 task = json_data.get("task")

@@ -39,7 +39,8 @@ async def run_research_task(query, websocket=None, stream_output=None, tone=Tone
             "The report MUST be written in korean"
         ],
         "verbose": True,
-        "llm_provider": "openai"
+        "llm_provider": "openai",
+        "multi_agents": True
     }
 
     # print("task: ", task)
@@ -53,12 +54,13 @@ async def run_research_task(query, websocket=None, stream_output=None, tone=Tone
     return research_report
 
 async def main():
-    task = open_task()
+    # task = open_task()
 
-    chief_editor = ChiefEditorAgent(task)
-    research_report = await chief_editor.run_research_task()
+    # chief_editor = ChiefEditorAgent(task)
+    # research_report = await chief_editor.run_research_task()
 
-    return research_report
+    # return research_report
+    return None 
 
 if __name__ == "__main__":
     asyncio.run(main())
